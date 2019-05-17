@@ -34,27 +34,39 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectecLister);
+
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
+        layoutParams.setBehavior(new BottomNavigationBehavior());
+
         toolbar.setTitle("Shop");
         toolbar.setTitleTextColor(Color.WHITE);
+        loadFragment(new StoreFragment());
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectecLister = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            // Fragment fragment;
+            Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_shop:
                     toolbar.setTitle("Shop");
-
+                    fragment = new StoreFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_gifts:
                     toolbar.setTitle("My Gifts");
+                    fragment = new GiftsFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_cart:
                     toolbar.setTitle("Cart");
+                    fragment = new CartFragment();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_profile:
                     toolbar.setTitle("Profile");
+                    fragment = new ProfileFragment();
+                    loadFragment(fragment);
                     return true;
             }
             return false;
